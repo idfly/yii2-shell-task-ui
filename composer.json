@@ -1,0 +1,23 @@
+{
+    "name": "idfly/yii2-shell-task-ui",
+    "description": "yii2 shell task module frontend",
+    "keywords": [
+        "yii2",
+        "extension"
+    ],
+    "type": "yii2-extension",
+    "support": {
+        "source": "https://bitbucket.org/idfly/yii2-shell-task-ui"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "yiisoft/yii2": "*",
+        "idfly\yii2-shell-task": "*"
+
+    },
+    "autoload": {
+        "psr-4": {
+            "idfly\\shellTaskUi\\": ""
+        }
+    }
+}
