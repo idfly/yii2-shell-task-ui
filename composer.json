@@ -12,8 +12,8 @@
     "minimum-stability": "dev",
     "require": {
         "yiisoft/yii2": "*",
-        "idfly\yii2-shell-task": "*"
-
+        "idfly\yii2-shell-task": "*",
+        "yiisoft/yii2-bootstrap": "2.0.*@stable"
     },
     "autoload": {
         "psr-4": {
