@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 ?>
 
 <table class="table table-striped">
@@ -10,6 +11,7 @@ use yii\helpers\Html;
             <th>Описание</th>
             <th>Команда</th>
             <th>Статус</th>
+            <th>Лог</th>
             <th>Действия</th>
         </tr>
     </thead>
@@ -21,8 +23,28 @@ use yii\helpers\Html;
                 <td><?= Html::encode($task['name']) ?></th>
                 <td><?= Html::encode($task['description']) ?></td>
                 <td><?= Html::encode($task['cmd']) ?></td>
-                <td>todo</td>
-                <td>todo</td>
+                <td>
+                <?php if(!empty($task['info'])) : ?>
+                    <?php if(!empty($task['info']['processes_count'])) : ?>
+                        Выполняется процессов в данный момент:
+                        <?= $task['info']['processes_count'] ?>
+                    <?php else : ?>
+                        Дата последнего выполнения<br/>
+                        <?= Html::encode($task['info']['last_modify_date']) ?>
+                    <?php endif ?>
+                <?php endif ?>
+                </td>
+                <td>
+                    <?php if(!empty($task['info']['log'])) : ?>
+                        <?= Html::encode($task['info']['log']) ?>
+                    <?php endif ?>
+                </td>
+                <td>
+                    <a class="btn btn-xs btn-primary inline glyphicon glyphicon-play"
+                        href="<?= Url::to(['/shellTaskUi/default/run-task', 'cmd' => $task['cmd']]) ?>"></a>
+
+                    <a class="btn btn-xs btn-danger inline glyphicon glyphicon-stop" href="#"></a>
+                </td>
             </tr>
         <?php endforeach ?>
     </tbody>

@@ -5,6 +5,7 @@ namespace idfly\shellTaskUi\controllers;
 use Yii;
 use idfly\shellTaskUi\models\LoginForm;
 use yii\web\Controller;
+use idfly\shellTask\ShellTask;
 
 class DefaultController extends Controller
 {
@@ -38,8 +39,26 @@ class DefaultController extends Controller
 
         $tasks = \yii::$app->modules['shellTaskUi']->tasks;
 
+        foreach($tasks as &$task) {
+            $task['info'] = ShellTask::getInfo($task['cmd']);
+        }
+
         return $this->render('index', [
             'tasks' => $tasks,
         ]);
+    }
+
+    public function actionRunTask($cmd)
+    {
+        $tasks = \yii::$app->modules['shellTaskUi']->tasks;
+
+        $isTaskExists =
+            in_array($cmd, \yii\helpers\ArrayHelper::getColumn($tasks, 'cmd'));
+
+        if($isTaskExists) {
+            ShellTask::run($cmd, []);
+        }
+
+        $this->redirect(['default/index']);
     }
 }
