@@ -36,7 +36,7 @@ use yii\helpers\Url;
                 </td>
                 <td>
 
-                <a href="#log<?= Html::encode($index) ?>" class="btn btn-default" data-toggle="collapse">Toggle Foo</a>
+                <a href="#log<?= Html::encode($index) ?>" class="btn btn-default" data-toggle="collapse">Посмотреть лог</a>
                 <div id="log<?= Html::encode($index) ?>" class="collapse">
                     <?php if(!empty($task['info']['log'])) : ?>
                         <?= Html::encode($task['info']['log']) ?>
