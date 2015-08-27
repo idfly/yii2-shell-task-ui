@@ -35,13 +35,12 @@ use yii\helpers\Url;
                 <?php endif ?>
                 </td>
                 <td>
-
-                <a href="#log<?= Html::encode($index) ?>" class="btn btn-default" data-toggle="collapse">Посмотреть лог</a>
-                <div id="log<?= Html::encode($index) ?>" class="collapse">
-                    <?php if(!empty($task['info']['log'])) : ?>
+                <?php if(!empty($task['info']['log'])) : ?>
+                    <a href="#log<?= Html::encode($index) ?>" class="btn btn-default" data-toggle="collapse">Посмотреть лог</a>
+                    <div id="log<?= Html::encode($index) ?>" class="collapse">
                         <?= Html::encode($task['info']['log']) ?>
-                    <?php endif ?>
-                </div>
+                    </div>
+                <?php endif ?>
                 </td>
                 <td>
                     <a class="btn btn-xs btn-primary inline glyphicon glyphicon-play"
