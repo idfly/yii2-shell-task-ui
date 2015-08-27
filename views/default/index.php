@@ -35,15 +35,20 @@ use yii\helpers\Url;
                 <?php endif ?>
                 </td>
                 <td>
+
+                <a href="#log<?= Html::encode($index) ?>" class="btn btn-default" data-toggle="collapse">Toggle Foo</a>
+                <div id="log<?= Html::encode($index) ?>" class="collapse">
                     <?php if(!empty($task['info']['log'])) : ?>
                         <?= Html::encode($task['info']['log']) ?>
                     <?php endif ?>
+                </div>
                 </td>
                 <td>
                     <a class="btn btn-xs btn-primary inline glyphicon glyphicon-play"
                         href="<?= Url::to(['/shellTaskUi/default/run-task', 'cmd' => $task['cmd']]) ?>"></a>
 
-                    <a class="btn btn-xs btn-danger inline glyphicon glyphicon-stop" href="#"></a>
+                    <a class="btn btn-xs btn-danger inline glyphicon glyphicon-stop"
+                        href="<?= Url::to(['/shellTaskUi/default/stop-task', 'cmd' => $task['cmd']]) ?>"></a>
                 </td>
             </tr>
         <?php endforeach ?>

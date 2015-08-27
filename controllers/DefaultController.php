@@ -50,15 +50,33 @@ class DefaultController extends Controller
 
     public function actionRunTask($cmd)
     {
+        if($this->_checkIfTaskExists($cmd)) {
+            ShellTask::run($cmd, []);
+        }
+
+        $this->redirect(['default/index']);
+    }
+
+    public function actionStopTask($cmd)
+    {
+        if($this->_checkIfTaskExists($cmd)) {
+            ShellTask::stop($cmd);
+        }
+
+        $this->redirect(['default/index']);
+    }
+
+    protected function _checkIfTaskExists($cmd)
+    {
         $tasks = \yii::$app->modules['shellTaskUi']->tasks;
 
         $isTaskExists =
             in_array($cmd, \yii\helpers\ArrayHelper::getColumn($tasks, 'cmd'));
 
         if($isTaskExists) {
-            ShellTask::run($cmd, []);
+            return true;
         }
 
-        $this->redirect(['default/index']);
+        return false;
     }
 }

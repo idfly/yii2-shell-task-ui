@@ -4,7 +4,8 @@
 
 use yii\helpers\Html;
 
-yii\bootstrap\BootstrapAsset::register($this)
+yii\bootstrap\BootstrapAsset::register($this);
+yii\bootstrap\BootstrapPluginAsset::register($this);
 ?>
 
 <?php $this->beginPage() ?>
