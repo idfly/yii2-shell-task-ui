@@ -18,7 +18,11 @@ use yii\helpers\Url;
 
     <tbody>
         <?php foreach($tasks as $index => $task) : ?>
-            <tr>
+            <tr
+                <?php if($task['info']['status_code'] !== "0") : ?>
+                    class="danger"
+                <?php endif ?>
+            >
                 <th scope="row">#<?= ++$index ?></th>
                 <td><?= Html::encode($task['name']) ?></th>
                 <td><?= Html::encode($task['description']) ?></td>
@@ -30,7 +34,13 @@ use yii\helpers\Url;
                         <?= $task['info']['processes_count'] ?>
                     <?php else : ?>
                         Дата последнего выполнения<br/>
-                        <?= Html::encode($task['info']['last_modify_date']) ?>
+                        <?= Html::encode(explode('.', $task['info']['last_modify_date'])[0]) ?> <br/>
+                        exit-код: <?= Html::encode($task['info']['status_code']) ?>,
+                        <?php if($task['info']['status_code'] === "0") : ?>
+                            команда выполнена успешно
+                        <?php else : ?>
+                            ошибка выполения команды
+                        <?php endif ?>
                     <?php endif ?>
                 <?php endif ?>
                 </td>
@@ -43,11 +53,13 @@ use yii\helpers\Url;
                 <?php endif ?>
                 </td>
                 <td>
-                    <a class="btn btn-xs btn-primary inline glyphicon glyphicon-play"
-                        href="<?= Url::to(['/shellTaskUi/default/run-task', 'command' => $task['command']]) ?>"></a>
-
-                    <a class="btn btn-xs btn-danger inline glyphicon glyphicon-stop"
-                        href="<?= Url::to(['/shellTaskUi/default/stop-task', 'command' => $task['command']]) ?>"></a>
+                    <?php if(!empty($task['info']['processes_count'])) : ?>
+                        <a class="btn btn-xs btn-danger inline glyphicon glyphicon-stop"
+                            href="<?= Url::to(['/shellTaskUi/default/stop-task', 'command' => $task['command']]) ?>"></a>
+                    <?php else : ?>
+                        <a class="btn btn-xs btn-primary inline glyphicon glyphicon-play"
+                            href="<?= Url::to(['/shellTaskUi/default/run-task', 'command' => $task['command']]) ?>"></a>
+                    <?php endif ?>
                 </td>
             </tr>
         <?php endforeach ?>
