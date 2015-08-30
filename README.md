@@ -29,7 +29,7 @@ Frontend-модуль yii2-shell-task для запуска команд yii2.
                 [
                     'name' => 'Обновление похожих товаров',
                     'description' => 'Сделать обновление похожих товаров',
-                    'cmd' => 'wares/update-similar',
+                    'command' => 'wares/update-similar',
                 ],
             ],
         ];`

@@ -22,7 +22,7 @@ use yii\helpers\Url;
                 <th scope="row">#<?= ++$index ?></th>
                 <td><?= Html::encode($task['name']) ?></th>
                 <td><?= Html::encode($task['description']) ?></td>
-                <td><?= Html::encode($task['cmd']) ?></td>
+                <td><?= Html::encode($task['command']) ?></td>
                 <td>
                 <?php if(!empty($task['info'])) : ?>
                     <?php if(!empty($task['info']['processes_count'])) : ?>
@@ -44,10 +44,10 @@ use yii\helpers\Url;
                 </td>
                 <td>
                     <a class="btn btn-xs btn-primary inline glyphicon glyphicon-play"
-                        href="<?= Url::to(['/shellTaskUi/default/run-task', 'cmd' => $task['cmd']]) ?>"></a>
+                        href="<?= Url::to(['/shellTaskUi/default/run-task', 'command' => $task['command']]) ?>"></a>
 
                     <a class="btn btn-xs btn-danger inline glyphicon glyphicon-stop"
-                        href="<?= Url::to(['/shellTaskUi/default/stop-task', 'cmd' => $task['cmd']]) ?>"></a>
+                        href="<?= Url::to(['/shellTaskUi/default/stop-task', 'command' => $task['command']]) ?>"></a>
                 </td>
             </tr>
         <?php endforeach ?>

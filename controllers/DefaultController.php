@@ -40,7 +40,7 @@ class DefaultController extends Controller
         $tasks = \yii::$app->modules['shellTaskUi']->tasks;
 
         foreach($tasks as &$task) {
-            $task['info'] = ShellTask::getInfo($task['cmd']);
+            $task['info'] = ShellTask::getInfo($task['command']);
         }
 
         return $this->render('index', [
@@ -48,30 +48,32 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function actionRunTask($cmd)
+    public function actionRunTask($command)
     {
-        if($this->_checkIfTaskExists($cmd)) {
-            ShellTask::run($cmd, []);
+        if($this->_checkIfTaskExists($command)) {
+            ShellTask::run($command, []);
         }
 
         $this->redirect(['default/index']);
     }
 
-    public function actionStopTask($cmd)
+    public function actionStopTask($command)
     {
-        if($this->_checkIfTaskExists($cmd)) {
-            ShellTask::stop($cmd);
+        if($this->_checkIfTaskExists($command)) {
+            ShellTask::stop($command);
         }
 
         $this->redirect(['default/index']);
     }
 
-    protected function _checkIfTaskExists($cmd)
+    protected function _checkIfTaskExists($command)
     {
         $tasks = \yii::$app->modules['shellTaskUi']->tasks;
 
         $isTaskExists =
-            in_array($cmd, \yii\helpers\ArrayHelper::getColumn($tasks, 'cmd'));
+            in_array($command,
+                \yii\helpers\ArrayHelper::getColumn($tasks, 'command')
+            );
 
         if($isTaskExists) {
             return true;
