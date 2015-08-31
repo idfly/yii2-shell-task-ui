@@ -48,10 +48,9 @@ use yii\helpers\Url;
                 </td>
                 <td>
                 <?php if(!empty($task['info']['log'])) : ?>
-                    <a href="#log<?= Html::encode($index) ?>" class="btn btn-default" data-toggle="collapse">Посмотреть лог</a>
-                    <div id="log<?= Html::encode($index) ?>" class="collapse">
-                        <?= Html::encode($task['info']['log']) ?>
-                    </div>
+                    <a target="_blank"
+                        href="<?= Url::to(['/shellTaskUi/default/show-log', 'command' => $task['command']]) ?>"
+                        class="btn btn-default">Посмотреть лог</a>
                 <?php endif ?>
                 </td>
                 <td>

@@ -13,6 +13,26 @@ class DefaultController extends Controller
 
     public $layout = 'main';
 
+    public function actionShowLog($command)
+    {
+        $tasks = \yii::$app->modules['shellTaskUi']->tasks;
+
+        $taskForLog = null;
+
+        foreach($tasks as $task) {
+            if($task['command'] === $command) {
+                $taskForLog = $task;
+                break;
+            }
+        }
+
+        $taskForLog['info'] = ShellTask::getInfo($task['command']);
+
+        return $this->render('log', [
+            'task' => $taskForLog,
+        ]);
+    }
+
     public function actionLogin()
     {
         if(!Yii::$app->cpatrackerUser->getIsGuest()) {
