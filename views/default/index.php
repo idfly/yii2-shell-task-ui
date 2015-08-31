@@ -19,7 +19,9 @@ use yii\helpers\Url;
     <tbody>
         <?php foreach($tasks as $index => $task) : ?>
             <tr
-                <?php if($task['info']['status_code'] !== "0") : ?>
+                <?php if(!empty($task['info']['processes_count'])) : ?>
+                    class="info"
+                <?php elseif($task['info']['status_code'] !== "0") : ?>
                     class="danger"
                 <?php endif ?>
             >
