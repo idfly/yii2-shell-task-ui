@@ -13,7 +13,7 @@ class Module extends \yii\base\Module
         parent::init();
 
         \Yii::$app->set('shellTaskUiUser', [
-            'identityClass' => 'shellTaskUi\models\User',
+            'identityClass' => 'idfly\shellTaskUi\models\User',
             'class' => 'yii\web\User',
             'enableAutoLogin' => true,
         ]);

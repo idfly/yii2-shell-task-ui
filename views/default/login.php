@@ -1,10 +1,3 @@
-<?php
-/**
- * @var $model \cpatracker\models\LoginForm
- */
-?>
-
-
 <?php $form = \yii\widgets\ActiveForm::begin([
     'options' => ['class' => '',],
 ]); ?>

@@ -35,7 +35,7 @@ class DefaultController extends Controller
 
     public function actionLogin()
     {
-        if(!Yii::$app->cpatrackerUser->getIsGuest()) {
+        if(!Yii::$app->shellTaskUiUser->getIsGuest()) {
             $this->redirect(['index']);
         }
 
@@ -53,7 +53,7 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
-        if(Yii::$app->cpatrackerUser->getIsGuest()) {
+        if(Yii::$app->shellTaskUiUser->getIsGuest()) {
             $this->redirect(['login']);
         }
 
