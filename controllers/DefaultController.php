@@ -3,15 +3,19 @@
 namespace idfly\shellTaskUi\controllers;
 
 use Yii;
-use idfly\shellTaskUi\models\LoginForm;
 use yii\web\Controller;
 use idfly\shellTask\ShellTask;
 
 class DefaultController extends Controller
 {
+    public $defaultAction = '';
     public $enableCsrfValidation = false;
 
-    public $layout = 'main';
+    public function beforeAction($action) {
+        $this->layout = \Yii::$app->controller->module->params['layout'];
+        \Yii::$app->controller->module->params['authorization_callback']();
+        return parent::beforeAction($action);
+    }
 
     public function actionShowLog($command)
     {
@@ -33,30 +37,8 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function actionLogin()
-    {
-        if(!Yii::$app->shellTaskUiUser->getIsGuest()) {
-            $this->redirect(['index']);
-        }
-
-        $model = new LoginForm();
-
-        if(Yii::$app->request->isPost) {
-            $model->load(Yii::$app->request->post());
-            if($model->validate()) {
-                $this->redirect(['index']);
-            }
-        }
-
-        return $this->render('login', ['model' => $model]);
-    }
-
     public function actionIndex()
     {
-        if(Yii::$app->shellTaskUiUser->getIsGuest()) {
-            $this->redirect(['login']);
-        }
-
         $tasks = \yii::$app->modules['shellTaskUi']->tasks;
 
         foreach($tasks as &$task) {

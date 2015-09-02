@@ -17,13 +17,20 @@ Frontend-модуль yii2-shell-task для запуска команд yii2.
 
 3. Выполнить `composer update`
 
-4. Добавить модуль в проектный конфиг:
+## Настройка
+
+1. Добавить модуль в проектный конфиг:
 
         `$config['modules']['shellTaskUi'] = [
             'class' => 'idfly\shellTaskUi\Module',
             'params' => [
-                'login' => 'root', // имя пользователя
-                'password' => '123123', // пароль для доступа к странице модуля
+                'authorization_callback' => function() {
+                    $admin = \app\models\Admin::getCurrent();
+                    if(empty($admin)) {
+                        Yii::$app->getResponse()->redirect('/admin/login');
+                    }
+                },
+                'layout' => '@app/admin/views/layouts/admin.php'
             ],
             'tasks' => [
                 [
@@ -34,7 +41,11 @@ Frontend-модуль yii2-shell-task для запуска команд yii2.
             ],
         ];`
 
-4. Перечислить свои команды в конфиге модуля в массиве `tasks`.
+2. Перечислить свои команды в конфиге модуля в массиве `tasks`.
+
+3. В route-конфиге указать удобочитаемый route для модуля
+
+        '/admin/shell-task-ui' => 'shellTaskUi/default/index',
 
 ### Описание
 
